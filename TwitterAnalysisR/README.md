@@ -14,7 +14,7 @@
 To run this file:
 
 1.  Download the `tweets.csv` from my Google Drive
-2.  Make sure `tweets.csv` and `sp500.csv` are in the same working directory and not renamed.
+2.  Make sure `tweets.csv`,`sp500.csv` and `TwitterAnalsyisR.Rmd` are in the same working directory and not renamed.
 3.  Open `TwitterAnalsyisR.Rmd` with RStudio
 4.  Clear the R environment, including hidden objects.
 5.  Press the "Run All" button.
