@@ -1,6 +1,6 @@
 # Twitter and the Cross-Section of Stock Returns - R Programming Language
 
-> ### *Please refer to the `README.md` file inside the `TwitterAnalysisR` folder for a detailed guide on how to test the code.*
+> # Please refer to the `README.md` file inside the `TwitterAnalysisR` folder for a detailed guide on how to test the code.
 
 ## Project Overview
 
