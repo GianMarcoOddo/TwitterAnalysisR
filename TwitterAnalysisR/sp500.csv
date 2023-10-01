@@ -1,0 +1,505 @@
+"","POSITION","COMPANY","TICKER","WEIGHT"
+"1",1,"Apple Inc.","AAPL",0.06182741
+"2",2,"Microsoft Corporation","MSFT",0.05633106
+"3",3,"Amazon.com Inc.","AMZN",0.02362942
+"4",4,"Berkshire Hathaway Inc. Class B","BRK-B",0.0170047
+"5",5,"Alphabet Inc. Class A","GOOGL",0.01661709
+"6",6,"UnitedHealth Group Incorporated","UNH",0.01519014
+"7",7,"Alphabet Inc. Class C","GOOG",0.01483129
+"8",8,"Johnson & Johnson","JNJ",0.01436915
+"9",9,"Exxon Mobil Corporation","XOM",0.01373141
+"10",10,"NVIDIA Corporation","NVDA",0.0125306
+"11",11,"JPMorgan Chase & Co.","JPM",0.01198008
+"12",12,"Tesla Inc","TSLA",0.01155902
+"13",13,"Procter & Gamble Company","PG",0.01114268
+"14",14,"Visa Inc. Class A","V",0.01049331
+"15",15,"Home Depot Inc.","HD",0.01006709
+"16",16,"Chevron Corporation","CVX",0.00959963
+"17",17,"Mastercard Incorporated Class A","MA",0.0091031
+"18",18,"Pfizer Inc.","PFE",0.00900287
+"19",19,"AbbVie Inc.","ABBV",0.00887495
+"20",20,"Eli Lilly and Company","LLY",0.00886395
+"21",21,"Merck & Co. Inc.","MRK",0.00869294
+"22",22,"Meta Platforms Inc. Class A","META",0.0082285
+"23",23,"PepsiCo Inc.","PEP",0.007803
+"24",24,"Coca-Cola Company","KO",0.00763739
+"25",25,"Bank of America Corp","BAC",0.00702135
+"26",26,"Broadcom Inc.","AVGO",0.00688584
+"27",27,"Thermo Fisher Scientific Inc.","TMO",0.00647771
+"28",28,"Walmart Inc.","WMT",0.00635388
+"29",29,"Costco Wholesale Corporation","COST",0.00633272
+"30",30,"McDonald's Corporation","MCD",0.00611574
+"31",31,"Cisco Systems Inc.","CSCO",0.00607847
+"32",32,"Abbott Laboratories","ABT",0.0058006
+"33",33,"Danaher Corporation","DHR",0.00523342
+"34",34,"NextEra Energy Inc.","NEE",0.0051868
+"35",35,"Accenture Plc Class A","ACN",0.00515063
+"36",36,"Linde plc","LIN",0.00508207
+"37",37,"Walt Disney Company","DIS",0.00495785
+"38",38,"Adobe Incorporated","ADBE",0.00492941
+"39",39,"Philip Morris International Inc.","PM",0.00488923
+"40",40,"Wells Fargo & Company","WFC",0.00488009
+"41",41,"Verizon Communications Inc.","VZ",0.004855
+"42",42,"Bristol-Myers Squibb Company","BMY",0.00482515
+"43",43,"Texas Instruments Incorporated","TXN",0.00472637
+"44",44,"Comcast Corporation Class A","CMCSA",0.00463913
+"45",45,"Raytheon Technologies Corporation","RTX",0.00451474
+"46",46,"Honeywell International Inc.","HON",0.0044372
+"47",47,"Amgen Inc.","AMGN",0.00441069
+"48",48,"ConocoPhillips","COP",0.00438681
+"49",49,"NIKE Inc. Class B","NKE",0.00406157
+"50",50,"AT&T Inc.","T",0.00402476
+"51",51,"Salesforce Inc.","CRM",0.00401429
+"52",52,"Netflix Inc.","NFLX",0.00400806
+"53",53,"International Business Machines Corporation","IBM",0.00399196
+"54",54,"United Parcel Service Inc. Class B","UPS",0.00395245
+"55",55,"Union Pacific Corporation","UNP",0.00394668
+"56",56,"QUALCOMM Incorporated","QCOM",0.0039206
+"57",57,"CVS Health Corporation","CVS",0.00390106
+"58",58,"Lowe's Companies Inc.","LOW",0.00389631
+"59",59,"Oracle Corporation","ORCL",0.00388741
+"60",60,"Caterpillar Inc.","CAT",0.00382424
+"61",61,"Charles Schwab Corp","SCHW",0.00378329
+"62",62,"Elevance Health Inc.","ELV",0.00377268
+"63",63,"Deere & Company","DE",0.00373698
+"64",64,"Goldman Sachs Group Inc.","GS",0.00366054
+"65",65,"Lockheed Martin Corporation","LMT",0.00354377
+"66",66,"Starbucks Corporation","SBUX",0.00351565
+"67",67,"Morgan Stanley","MS",0.0035085
+"68",68,"S&P Global Inc.","SPGI",0.00345618
+"69",69,"Intel Corporation","INTC",0.00341013
+"70",70,"Intuit Inc.","INTU",0.00340979
+"71",71,"Gilead Sciences Inc.","GILD",0.00332277
+"72",72,"Boeing Company","BA",0.00329659
+"73",73,"Advanced Micro Devices Inc.","AMD",0.0032724
+"74",74,"BlackRock Inc.","BLK",0.00324674
+"75",75,"Prologis Inc.","PLD",0.00323613
+"76",76,"Medtronic Plc","MDT",0.00318599
+"77",77,"Automatic Data Processing Inc.","ADP",0.0031556
+"78",78,"Cigna Corporation","CI",0.00314874
+"79",79,"American Tower Corporation","AMT",0.00303665
+"80",80,"Intuitive Surgical Inc.","ISRG",0.00290855
+"81",81,"TJX Companies Inc","TJX",0.00282915
+"82",82,"Mondelez International Inc. Class A","MDLZ",0.00281083
+"83",83,"Chubb Limited","CB",0.00279255
+"84",84,"Applied Materials Inc.","AMAT",0.00278273
+"85",85,"General Electric Company","GE",0.00273463
+"86",86,"American Express Company","AXP",0.0027217
+"87",87,"Analog Devices Inc.","ADI",0.00266086
+"88",88,"Citigroup Inc.","C",0.00265182
+"89",89,"T-Mobile US Inc.","TMUS",0.00263104
+"90",90,"Altria Group Inc","MO",0.00260462
+"91",91,"Marsh & McLennan Companies Inc.","MMC",0.00256158
+"92",92,"Stryker Corporation","SYK",0.00250175
+"93",93,"PayPal Holdings Inc.","PYPL",0.00244978
+"94",94,"Regeneron Pharmaceuticals Inc.","REGN",0.00244762
+"95",95,"ServiceNow Inc.","NOW",0.00243154
+"96",96,"Duke Energy Corporation","DUK",0.00241165
+"97",97,"Northrop Grumman Corp.","NOC",0.0023959
+"98",98,"Booking Holdings Inc.","BKNG",0.00237411
+"99",99,"Southern Company","SO",0.00236358
+"100",100,"Vertex Pharmaceuticals Incorporated","VRTX",0.00235233
+"101",101,"Progressive Corporation","PGR",0.00232561
+"102",102,"EOG Resources Inc.","EOG",0.00232198
+"103",103,"Schlumberger NV","SLB",0.00229375
+"104",104,"Becton Dickinson and Company","BDX",0.00221375
+"105",105,"Air Products and Chemicals Inc.","APD",0.0021664
+"106",106,"3M Company","MMM",0.0020869
+"107",107,"Moderna Inc.","MRNA",0.00207706
+"108",108,"Zoetis Inc. Class A","ZTS",0.00207494
+"109",109,"Target Corporation","TGT",0.00206879
+"110",110,"Boston Scientific Corporation","BSX",0.0020519
+"111",111,"Colgate-Palmolive Company","CL",0.00202154
+"112",112,"CSX Corporation","CSX",0.00201908
+"113",113,"Humana Inc.","HUM",0.00198508
+"114",114,"Fiserv Inc.","FISV",0.00198316
+"115",115,"Eaton Corp. Plc","ETN",0.00193397
+"116",116,"Aon Plc Class A","AON",0.00192521
+"117",117,"Illinois Tool Works Inc.","ITW",0.00191336
+"118",118,"PNC Financial Services Group Inc.","PNC",0.00191184
+"119",119,"CME Group Inc. Class A","CME",0.00190203
+"120",120,"Equinix Inc.","EQIX",0.00188592
+"121",121,"Lam Research Corporation","LRCX",0.00186553
+"122",122,"Waste Management Inc.","WM",0.00184845
+"123",123,"Crown Castle Inc.","CCI",0.0018109
+"124",124,"U.S. Bancorp","USB",0.00176563
+"125",125,"Norfolk Southern Corporation","NSC",0.00175755
+"126",126,"Sherwin-Williams Company","SHW",0.00175262
+"127",127,"Emerson Electric Co.","EMR",0.00175256
+"128",128,"Intercontinental Exchange Inc.","ICE",0.00174421
+"129",129,"General Dynamics Corporation","GD",0.00172706
+"130",130,"Micron Technology Inc.","MU",0.0017219
+"131",131,"Estee Lauder Companies Inc. Class A","EL",0.00171024
+"132",132,"Truist Financial Corporation","TFC",0.00170499
+"133",133,"KLA Corporation","KLAC",0.00170425
+"134",134,"Dollar General Corporation","DG",0.0017011
+"135",135,"Freeport-McMoRan Inc.","FCX",0.00168345
+"136",136,"Activision Blizzard Inc.","ATVI",0.00168236
+"137",137,"McKesson Corporation","MCK",0.00168136
+"138",138,"Marathon Petroleum Corporation","MPC",0.00165519
+"139",139,"Pioneer Natural Resources Company","PXD",0.00163243
+"140",140,"O'Reilly Automotive Inc.","ORLY",0.00161075
+"141",141,"HCA Healthcare Inc","HCA",0.00159832
+"142",142,"Archer-Daniels-Midland Company","ADM",0.00159557
+"143",143,"General Motors Company","GM",0.00156285
+"144",144,"Dominion Energy Inc","D",0.00154477
+"145",145,"General Mills Inc.","GIS",0.00154259
+"146",146,"Synopsys Inc.","SNPS",0.00154195
+"147",147,"Sempra Energy","SRE",0.00153769
+"148",148,"Phillips 66","PSX",0.00153328
+"149",149,"American Electric Power Company Inc.","AEP",0.00150427
+"150",150,"MetLife Inc.","MET",0.00149801
+"151",151,"Valero Energy Corporation","VLO",0.00146843
+"152",152,"American International Group Inc.","AIG",0.00145818
+"153",153,"Centene Corporation","CNC",0.00143093
+"154",154,"Kimberly-Clark Corporation","KMB",0.00142346
+"155",155,"Edwards Lifesciences Corporation","EW",0.00141937
+"156",156,"Amphenol Corporation Class A","APH",0.0014177
+"157",157,"Occidental Petroleum Corporation","OXY",0.00141731
+"158",158,"AutoZone Inc.","AZO",0.00141415
+"159",159,"Ford Motor Company","F",0.00141077
+"160",160,"Roper Technologies Inc.","ROP",0.00140694
+"161",161,"Public Storage","PSA",0.00138907
+"162",162,"Cadence Design Systems Inc.","CDNS",0.00138581
+"163",163,"DexCom Inc.","DXCM",0.00137912
+"164",164,"Agilent Technologies Inc.","A",0.00137444
+"165",165,"Travelers Companies Inc.","TRV",0.0013735
+"166",166,"Johnson Controls International plc","JCI",0.00135681
+"167",167,"Moody's Corporation","MCO",0.0013507
+"168",168,"Motorola Solutions Inc.","MSI",0.00132818
+"169",169,"Corteva Inc","CTVA",0.00131663
+"170",170,"NXP Semiconductors NV","NXPI",0.0013033
+"171",171,"Exelon Corporation","EXC",0.00129902
+"172",172,"Biogen Inc.","BIIB",0.00129774
+"173",173,"Enphase Energy Inc.","ENPH",0.00127415
+"174",174,"Autodesk Inc.","ADSK",0.00126997
+"175",175,"Aflac Incorporated","AFL",0.00126552
+"176",176,"Marriott International Inc. Class A","MAR",0.00126474
+"177",177,"Fidelity National Information Services Inc.","FIS",0.00125526
+"178",178,"Ross Stores Inc.","ROST",0.00124484
+"179",179,"Sysco Corporation","SYY",0.0012421
+"180",180,"Realty Income Corporation","O",0.00123694
+"181",181,"Chipotle Mexican Grill Inc.","CMG",0.00123378
+"182",182,"FedEx Corporation","FDX",0.00122964
+"183",183,"Williams Companies Inc.","WMB",0.00122766
+"184",184,"Arthur J. Gallagher & Co.","AJG",0.00122443
+"185",185,"L3Harris Technologies Inc","LHX",0.00122407
+"186",186,"Microchip Technology Incorporated","MCHP",0.00122143
+"187",187,"Trane Technologies plc","TT",0.0012198
+"188",188,"Monster Beverage Corporation","MNST",0.0012118
+"189",189,"Devon Energy Corporation","DVN",0.00121052
+"190",190,"Cintas Corporation","CTAS",0.00118919
+"191",191,"Xcel Energy Inc.","XEL",0.00118845
+"192",192,"Newmont Corporation","NEM",0.00117422
+"193",193,"Simon Property Group Inc.","SPG",0.00117281
+"194",194,"Hess Corporation","HES",0.00117014
+"195",195,"IQVIA Holdings Inc","IQV",0.00116952
+"196",196,"Constellation Brands Inc. Class A","STZ",0.00116768
+"197",197,"MSCI Inc. Class A","MSCI",0.00115237
+"198",198,"Paychex Inc.","PAYX",0.00114536
+"199",199,"TE Connectivity Ltd.","TEL",0.00114391
+"200",200,"Parker-Hannifin Corporation","PH",0.00114132
+"201",201,"Yum! Brands Inc.","YUM",0.00113909
+"202",202,"Prudential Financial Inc.","PRU",0.00113705
+"203",203,"Allstate Corporation","ALL",0.0011253
+"204",204,"Dow Inc.","DOW",0.00111069
+"205",205,"Hilton Worldwide Holdings Inc","HLT",0.00110493
+"206",206,"Ecolab Inc.","ECL",0.00109687
+"207",207,"Nucor Corporation","NUE",0.00109246
+"208",208,"Kinder Morgan Inc Class P","KMI",0.00108732
+"209",209,"Carrier Global Corp.","CARR",0.00108444
+"210",210,"PACCAR Inc","PCAR",0.00108043
+"211",211,"Hershey Company","HSY",0.00106872
+"212",212,"Halliburton Company","HAL",0.00106191
+"213",213,"Capital One Financial Corp","COF",0.00105661
+"214",214,"DuPont de Nemours Inc.","DD",0.00105319
+"215",215,"IDEXX Laboratories Inc.","IDXX",0.00105202
+"216",216,"Consolidated Edison Inc.","ED",0.00104901
+"217",217,"Cummins Inc.","CMI",0.00104178
+"218",218,"Charter Communications Inc. Class A","CHTR",0.00103824
+"219",219,"Ameriprise Financial Inc.","AMP",0.00103766
+"220",220,"Fortinet Inc.","FTNT",0.00102875
+"221",221,"Otis Worldwide Corporation","OTIS",0.00101851
+"222",222,"Bank of New York Mellon Corp","BK",0.00101448
+"223",223,"Electronic Arts Inc.","EA",0.00099051
+"224",224,"VICI Properties Inc","VICI",0.00099026
+"225",225,"Kraft Heinz Company","KHC",0.00098707
+"226",226,"Mettler-Toledo International Inc.","MTD",0.00098388
+"227",227,"AMETEK Inc.","AME",0.00098255
+"228",228,"TransDigm Group Incorporated","TDG",0.00097979
+"229",229,"CoStar Group Inc.","CSGP",0.00097485
+"230",230,"Keysight Technologies Inc","KEYS",0.00096575
+"231",231,"Keurig Dr Pepper Inc.","KDP",0.00095943
+"232",232,"ResMed Inc.","RMD",0.00095637
+"233",233,"Illumina Inc.","ILMN",0.00094122
+"234",234,"Welltower Inc","WELL",0.00093846
+"235",235,"Arista Networks Inc.","ANET",0.00093466
+"236",236,"SBA Communications Corp. Class A","SBAC",0.00093404
+"237",237,"WEC Energy Group Inc","WEC",0.0009299
+"238",238,"Public Service Enterprise Group Inc","PEG",0.00092342
+"239",239,"Dollar Tree Inc.","DLTR",0.00091511
+"240",240,"PPG Industries Inc.","PPG",0.00091327
+"241",241,"Baker Hughes Company Class A","BKR",0.00091124
+"242",242,"Rockwell Automation Inc.","ROK",0.00091028
+"243",243,"Kroger Co.","KR",0.00090781
+"244",244,"Constellation Energy Corporation","CEG",0.00089484
+"245",245,"State Street Corporation","STT",0.00089434
+"246",246,"Eversource Energy","ES",0.0008918
+"247",247,"ONEOK Inc.","OKE",0.00088698
+"248",248,"Walgreens Boots Alliance Inc.","WBA",0.00088675
+"249",249,"Cognizant Technology Solutions Corporation Class A","CTSH",0.00088661
+"250",250,"Digital Realty Trust Inc.","DLR",0.00088374
+"251",251,"ON Semiconductor Corporation","ON",0.00086377
+"252",252,"D.R. Horton Inc.","DHI",0.00086294
+"253",253,"Albemarle Corporation","ALB",0.00085487
+"254",254,"American Water Works Company Inc.","AWK",0.00085385
+"255",255,"AmerisourceBergen Corporation","ABC",0.00084715
+"256",256,"Fastenal Company","FAST",0.00084506
+"257",257,"Verisk Analytics Inc","VRSK",0.00084174
+"258",258,"Republic Services Inc.","RSG",0.00083187
+"259",259,"Gartner Inc.","IT",0.00082714
+"260",260,"Discover Financial Services","DFS",0.00082278
+"261",261,"Zimmer Biomet Holdings Inc.","ZBH",0.00082258
+"262",262,"Willis Towers Watson Public Limited Company","WTW",0.0008206
+"263",263,"International Flavors & Fragrances Inc.","IFF",0.00081416
+"264",264,"Global Payments Inc.","GPN",0.00081137
+"265",265,"Old Dominion Freight Line Inc.","ODFL",0.00081076
+"266",266,"Copart Inc.","CPRT",0.00080688
+"267",267,"PG&E Corporation","PCG",0.00079902
+"268",268,"W.W. Grainger Inc.","GWW",0.00079364
+"269",269,"Aptiv PLC","APTV",0.00079343
+"270",270,"Baxter International Inc.","BAX",0.00078062
+"271",271,"Genuine Parts Company","GPC",0.00077599
+"272",272,"Edison International","EIX",0.00077429
+"273",273,"M&T Bank Corporation","MTB",0.00076755
+"274",274,"T. Rowe Price Group","TROW",0.00076749
+"275",275,"United Rentals Inc.","URI",0.00076378
+"276",276,"HP Inc.","HPQ",0.00075423
+"277",277,"Hartford Financial Services Group Inc.","HIG",0.0007533
+"278",278,"CDW Corp.","CDW",0.00075025
+"279",279,"CBRE Group Inc. Class A","CBRE",0.00074852
+"280",280,"Diamondback Energy Inc.","FANG",0.00074691
+"281",281,"Corning Inc","GLW",0.0007447
+"282",282,"Vulcan Materials Company","VMC",0.00073345
+"283",283,"Equifax Inc.","EFX",0.00072779
+"284",284,"Tractor Supply Company","TSCO",0.00072661
+"285",285,"Arch Capital Group Ltd.","ACGL",0.00071944
+"286",286,"Weyerhaeuser Company","WY",0.00071478
+"287",287,"Ulta Beauty Inc.","ULTA",0.00071231
+"288",288,"Entergy Corporation","ETR",0.00071208
+"289",289,"Lennar Corporation Class A","LEN",0.00070689
+"290",290,"Fortive Corp.","FTV",0.00070557
+"291",291,"AvalonBay Communities Inc.","AVB",0.00070484
+"292",292,"Ameren Corporation","AEE",0.00070451
+"293",293,"eBay Inc.","EBAY",0.00070105
+"294",294,"FirstEnergy Corp.","FE",0.00069739
+"295",295,"DTE Energy Company","DTE",0.00069056
+"296",296,"Fifth Third Bancorp","FITB",0.00067979
+"297",297,"First Republic Bank","FRC",0.00067543
+"298",298,"Southwest Airlines Co.","LUV",0.00067525
+"299",299,"Alexandria Real Estate Equities Inc.","ARE",0.00066805
+"300",300,"PPL Corporation","PPL",0.00066787
+"301",301,"Martin Marietta Materials Inc.","MLM",0.00065796
+"302",302,"Cardinal Health Inc.","CAH",0.00065193
+"303",303,"McCormick & Company Incorporated","MKC",0.00064996
+"304",304,"Delta Air Lines Inc.","DAL",0.0006497
+"305",305,"Ingersoll Rand Inc.","IR",0.00064868
+"306",306,"LyondellBasell Industries NV","LYB",0.00063992
+"307",307,"Laboratory Corporation of America Holdings","LH",0.00063875
+"308",308,"Raymond James Financial Inc.","RJF",0.00063733
+"309",309,"ANSYS Inc.","ANSS",0.00063641
+"310",310,"Nasdaq Inc.","NDAQ",0.00063476
+"311",311,"Waters Corporation","WAT",0.00063198
+"312",312,"Hewlett Packard Enterprise Co.","HPE",0.00063115
+"313",313,"Quanta Services Inc.","PWR",0.00062968
+"314",314,"Equity Residential","EQR",0.00061968
+"315",315,"Warner Bros. Discovery Inc. Series A","WBD",0.00061713
+"316",316,"Huntington Bancshares Incorporated","HBAN",0.00061597
+"317",317,"Principal Financial Group Inc.","PFG",0.00061192
+"318",318,"Regions Financial Corporation","RF",0.00060714
+"319",319,"Coterra Energy Inc.","CTRA",0.00060593
+"320",320,"Extra Space Storage Inc.","EXR",0.00060282
+"321",321,"Xylem Inc.","XYL",0.00060222
+"322",322,"Church & Dwight Co. Inc.","CHD",0.00060208
+"323",323,"Molina Healthcare Inc.","MOH",0.00059673
+"324",324,"EPAM Systems Inc.","EPAM",0.00059265
+"325",325,"Dover Corporation","DOV",0.00059177
+"326",326,"VeriSign Inc.","VRSN",0.00058917
+"327",327,"AES Corporation","AES",0.00058322
+"328",328,"Citizens Financial Group Inc.","CFG",0.00058295
+"329",329,"CenterPoint Energy Inc.","CNP",0.00058277
+"330",330,"CF Industries Holdings Inc.","CF",0.00058053
+"331",331,"Hologic Inc.","HOLX",0.00057838
+"332",332,"Conagra Brands Inc.","CAG",0.00057042
+"333",333,"Kellogg Company","K",0.00056778
+"334",334,"Westinghouse Air Brake Technologies Corporation","WAB",0.00056574
+"335",335,"Teledyne Technologies Incorporated","TDY",0.00056572
+"336",336,"Amcor PLC","AMCR",0.00056439
+"337",337,"Northern Trust Corporation","NTRS",0.0005602
+"338",338,"STERIS Plc","STE",0.00055855
+"339",339,"Tyson Foods Inc. Class A","TSN",0.00055817
+"340",340,"CMS Energy Corporation","CMS",0.00055402
+"341",341,"Ventas Inc.","VTR",0.00055115
+"342",342,"Mid-America Apartment Communities Inc.","MAA",0.00054784
+"343",343,"Quest Diagnostics Incorporated","DGX",0.00054492
+"344",344,"Expeditors International of Washington Inc.","EXPD",0.00054457
+"345",345,"PerkinElmer Inc.","PKI",0.00054443
+"346",346,"Clorox Company","CLX",0.0005415
+"347",347,"Marathon Oil Corporation","MRO",0.00053884
+"348",348,"IDEX Corporation","IEX",0.00053488
+"349",349,"Darden Restaurants Inc.","DRI",0.00053349
+"350",350,"ABIOMED Inc.","ABMD",0.00053326
+"351",351,"Invitation Homes Inc.","INVH",0.00053321
+"352",352,"SolarEdge Technologies Inc.","SEDG",0.00053299
+"353",353,"West Pharmaceutical Services Inc.","WST",0.00051981
+"354",354,"J.M. Smucker Company","SJM",0.0005189
+"355",355,"Cincinnati Financial Corporation","CINF",0.00050717
+"356",356,"Etsy Inc.","ETSY",0.00049803
+"357",357,"Best Buy Co. Inc.","BBY",0.00049796
+"358",358,"Omnicom Group Inc","OMC",0.0004959
+"359",359,"Ball Corporation","BALL",0.00049557
+"360",360,"Monolithic Power Systems Inc.","MPWR",0.00049512
+"361",361,"Targa Resources Corp.","TRGP",0.00049094
+"362",362,"Broadridge Financial Solutions Inc.","BR",0.00049056
+"363",363,"Atmos Energy Corporation","ATO",0.00048822
+"364",364,"Mosaic Company","MOS",0.00048758
+"365",365,"FMC Corporation","FMC",0.00048717
+"366",366,"Cooper Companies Inc.","COO",0.00048593
+"367",367,"First Solar Inc.","FSLR",0.00048518
+"368",368,"Take-Two Interactive Software Inc.","TTWO",0.00047985
+"369",369,"KeyCorp","KEY",0.0004784
+"370",370,"Jacobs Solutions Inc.","J",0.00047486
+"371",371,"Las Vegas Sands Corp.","LVS",0.00047465
+"372",372,"Incyte Corporation","INCY",0.00047042
+"373",373,"FactSet Research Systems Inc.","FDS",0.00046423
+"374",374,"W. R. Berkley Corporation","WRB",0.00046308
+"375",375,"Paycom Software Inc.","PAYC",0.00046154
+"376",376,"Synchrony Financial","SYF",0.00045972
+"377",377,"Textron Inc.","TXT",0.00045798
+"378",378,"J.B. Hunt Transport Services Inc.","JBHT",0.00045647
+"379",379,"Avery Dennison Corporation","AVY",0.00045594
+"380",380,"Align Technology Inc.","ALGN",0.00045496
+"381",381,"Iron Mountain Inc.","IRM",0.00044925
+"382",382,"APA Corp.","APA",0.00044864
+"383",383,"Skyworks Solutions Inc.","SWKS",0.00044725
+"384",384,"NVR Inc.","NVR",0.00044619
+"385",385,"Leidos Holdings Inc.","LDOS",0.00044359
+"386",386,"Howmet Aerospace Inc.","HWM",0.00044029
+"387",387,"Evergy Inc.","EVRG",0.00043785
+"388",388,"Garmin Ltd.","GRMN",0.00043415
+"389",389,"LKQ Corporation","LKQ",0.00043003
+"390",390,"Teradyne Inc.","TER",0.00042875
+"391",391,"Alliant Energy Corp","LNT",0.00041817
+"392",392,"FLEETCOR Technologies Inc.","FLT",0.00041802
+"393",393,"Akamai Technologies Inc.","AKAM",0.0004179
+"394",394,"Essex Property Trust Inc.","ESS",0.00041651
+"395",395,"Tyler Technologies Inc.","TYL",0.00041549
+"396",396,"Healthpeak Properties Inc.","PEAK",0.00041145
+"397",397,"NetApp Inc.","NTAP",0.00041115
+"398",398,"EQT Corporation","EQT",0.00041086
+"399",399,"Hormel Foods Corporation","HRL",0.00040772
+"400",400,"Cboe Global Markets Inc","CBOE",0.00040529
+"401",401,"Everest Re Group Ltd.","RE",0.0004019
+"402",402,"Jack Henry & Associates Inc.","JKHY",0.00040175
+"403",403,"Viatris Inc.","VTRS",0.0004007
+"404",404,"Brown & Brown Inc.","BRO",0.00040056
+"405",405,"Kimco Realty Corporation","KIM",0.00039955
+"406",406,"PTC Inc.","PTC",0.00039943
+"407",407,"Zebra Technologies Corporation Class A","ZBRA",0.00039857
+"408",408,"Expedia Group Inc.","EXPE",0.00039841
+"409",409,"Domino's Pizza Inc.","DPZ",0.00039502
+"410",410,"Interpublic Group of Companies Inc.","IPG",0.00039442
+"411",411,"United Airlines Holdings Inc.","UAL",0.00039386
+"412",412,"Lamb Weston Holdings Inc.","LW",0.00039258
+"413",413,"Nordson Corporation","NDSN",0.00039108
+"414",414,"International Paper Company","IP",0.00039057
+"415",415,"Bio-Techne Corporation","TECH",0.00038903
+"416",416,"Gen Digital Inc.","GEN",0.00038565
+"417",417,"SVB Financial Group","SIVB",0.00038435
+"418",418,"Trimble Inc.","TRMB",0.00038133
+"419",419,"Pool Corporation","POOL",0.0003754
+"420",420,"Packaging Corporation of America","PKG",0.00037487
+"421",421,"Snap-on Incorporated","SNA",0.00037407
+"422",422,"Host Hotels & Resorts Inc.","HST",0.00037084
+"423",423,"Brown-Forman Corporation Class B","BF-B",0.00036694
+"424",424,"UDR Inc.","UDR",0.0003635
+"425",425,"Camden Property Trust","CPT",0.00036313
+"426",426,"C.H. Robinson Worldwide Inc.","CHRW",0.00035635
+"427",427,"Campbell Soup Company","CPB",0.00035417
+"428",428,"Match Group Inc.","MTCH",0.00035017
+"429",429,"Teleflex Incorporated","TFX",0.00035016
+"430",430,"MGM Resorts International","MGM",0.00034923
+"431",431,"Royal Caribbean Group","RCL",0.00034714
+"432",432,"Henry Schein Inc.","HSIC",0.00034706
+"433",433,"Stanley Black & Decker Inc.","SWK",0.00034315
+"434",434,"NiSource Inc","NI",0.00034104
+"435",435,"Loews Corporation","L",0.00033894
+"436",436,"Globe Life Inc.","GL",0.00033316
+"437",437,"Charles River Laboratories International Inc.","CRL",0.00033027
+"438",438,"Masco Corporation","MAS",0.00032684
+"439",439,"PulteGroup Inc.","PHM",0.00032252
+"440",440,"Juniper Networks Inc.","JNPR",0.00031877
+"441",441,"Celanese Corporation","CE",0.00031474
+"442",442,"MarketAxess Holdings Inc.","MKTX",0.00031238
+"443",443,"Western Digital Corporation","WDC",0.00031083
+"444",444,"Seagate Technology Holdings PLC","STX",0.00030984
+"445",445,"Eastman Chemical Company","EMN",0.00030949
+"446",446,"Live Nation Entertainment Inc.","LYV",0.00030388
+"447",447,"BorgWarner Inc.","BWA",0.00030036
+"448",448,"Ceridian HCM Holding Inc.","CDAY",0.00030007
+"449",449,"Caesars Entertainment Inc","CZR",0.00029821
+"450",450,"Molson Coors Beverage Company Class B","TAP",0.00029699
+"451",451,"Boston Properties Inc.","BXP",0.00029347
+"452",452,"Qorvo Inc.","QRVO",0.00029199
+"453",453,"Regency Centers Corporation","REG",0.00029088
+"454",454,"CarMax Inc.","KMX",0.00029015
+"455",455,"Allegion Public Limited Company","ALLE",0.00028903
+"456",456,"Bath & Body Works Inc.","BBWI",0.00028622
+"457",457,"Fox Corporation Class A","FOXA",0.00028594
+"458",458,"Huntington Ingalls Industries Inc.","HII",0.00028342
+"459",459,"Universal Health Services Inc. Class B","UHS",0.00028233
+"460",460,"Tapestry Inc.","TPR",0.00028181
+"461",461,"WestRock Company","WRK",0.00027519
+"462",462,"Wynn Resorts Limited","WYNN",0.00026979
+"463",463,"Pinnacle West Capital Corporation","PNW",0.00026963
+"464",464,"Rollins Inc.","ROL",0.00026851
+"465",465,"Bio-Rad Laboratories Inc. Class A","BIO",0.00026599
+"466",466,"Paramount Global Class B","PARA",0.00026545
+"467",467,"F5 Inc.","FFIV",0.00026491
+"468",468,"Advance Auto Parts Inc.","AAP",0.00026293
+"469",469,"Comerica Incorporated","CMA",0.00026067
+"470",470,"Invesco Ltd.","IVZ",0.00025513
+"471",471,"V.F. Corporation","VFC",0.00025149
+"472",472,"American Airlines Group Inc.","AAL",0.00025006
+"473",473,"Robert Half International Inc.","RHI",0.00024603
+"474",474,"Catalent Inc","CTLT",0.00024602
+"475",475,"Carnival Corporation","CCL",0.00024542
+"476",476,"Whirlpool Corporation","WHR",0.00023238
+"477",477,"NRG Energy Inc.","NRG",0.0002319
+"478",478,"Sealed Air Corporation","SEE",0.00023068
+"479",479,"Federal Realty Investment Trust","FRT",0.00023043
+"480",480,"A. O. Smith Corporation","AOS",0.00022516
+"481",481,"Pentair plc","PNR",0.00022329
+"482",482,"Signature Bank","SBNY",0.00022128
+"483",483,"Franklin Resources Inc.","BEN",0.00022087
+"484",484,"Hasbro Inc.","HAS",0.00021759
+"485",485,"Zions Bancorporation N.A.","ZION",0.00021655
+"486",486,"Organon & Co.","OGN",0.00021582
+"487",487,"News Corporation Class A","NWSA",0.00021268
+"488",488,"DENTSPLY SIRONA Inc.","XRAY",0.00020815
+"489",489,"Assurant Inc.","AIZ",0.00020239
+"490",490,"DXC Technology Co.","DXC",0.00018724
+"491",491,"Generac Holdings Inc.","GNRC",0.00017715
+"492",492,"Norwegian Cruise Line Holdings Ltd.","NCLH",0.00017554
+"493",493,"Alaska Air Group Inc.","ALK",0.00016629
+"494",494,"Lumen Technologies Inc.","LUMN",0.00015056
+"495",495,"Mohawk Industries Inc.","MHK",0.0001505
+"496",496,"Newell Brands Inc","NWL",0.00014814
+"497",497,"Lincoln National Corp","LNC",0.00014108
+"498",498,"Ralph Lauren Corporation Class A","RL",0.00013578
+"499",499,"Fox Corporation Class B","FOX",0.00012834
+"500",500,"DaVita Inc.","DVA",0.00012284
+"501",501,"DISH Network Corporation Class A","DISH",0.00010632
+"502",502,"Vornado Realty Trust","VNO",0.00010325
+"503",503,"News Corporation Class B","NWS",6.76e-05
+"504",504,"MasterBrand Inc","MBC",3.025e-05

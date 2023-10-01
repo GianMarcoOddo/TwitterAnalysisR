@@ -1,0 +1,1480 @@
+---
+title: '-- PROGRAMMING PROJECT - With Datasets - Twitter and the cross section of stock returns - Instructor: Peter H. Gruber --'
+author: "-- Gian Marco Oddo, Mattia Aprea, Martina Lentini, Siria Nigro --"
+date: "16-01-2023"
+output: word_document
+header-includes:
+- \setlength{\parindent}{4em}
+- \setlength{\parskip}{2em}
+---
+
+##############################################################################################################################
+
+- Auto detection of `time_span` and `range` used in the "Twitter Project without dataset.Rmd":
+
+\
+```{r lubridate, message=FALSE, warning=FALSE}
+# Make Dealing with Dates a Little Easier
+
+# lubridate ----> Authors: Vitalie Spinu, Garrett Grolemund, Hadley Wickham, Davis Vaughan, Ian Lyttle, Imanuel Costigan, Jason Law, Doug Mitarotonda, Joseph Larmarange, Jonathan Boiser, Chel Hee Lee
+# Maintainer: Vitalie Spinu <spinuvit@gmail.com>
+
+if (! require(lubridate)) {
+  install.packages("lubridate")
+}
+```
+\
+
+```{r importing luridate, message=FALSE, warning=FALSE}
+library(lubridate)
+```
+\
+
+`range` used for the analysis: 
+
+\
+```{r}
+tweets <- read.csv(paste(getwd(),"/tweets.csv",sep=""))
+
+# Removing unneeded columns
+
+drop <- c("X")
+
+tweets = tweets[,!(names(tweets) %in% drop)]
+
+tweets$DATE <- date(tweets$DATE)
+
+if (length(unique(tweets$CASHTAG)) < 350){
+  
+  range <- "top_80"
+  
+} else {
+  
+  range <- "all"
+}
+
+range
+```
+\
+
+`time_span` used for for the analysis: 
+
+\
+```{r}
+time_span <- as.numeric(unique(tweets$DATE)[1]+1 - unique(tweets$DATE)[length(unique(tweets$DATE))])
+time_span
+```
+
+
+##############################################################################################################################
+
+\
+
+# Setting up the R Studio Envirnoment for the Project "Twitter and the cross section of stock returns".
+
+\
+
+The following code requires several packages, apart from the `Lubridate` package above:
+\
+Sometimes R requires the user to restart the current session after having installed a package. This must be done by the user.
+\
+MAKE SURE TO HAVE ALL THE BELOW PACKAGES INSTALLED BEFORE LAUNCHING THE REST OF THE CODE in point `a.`.
+\
+
+```{r rvest, message=FALSE, warning=FALSE}
+# This package is used for Web-Scraping
+
+# rvest ----> Author: Hadley Wickham
+# Maintainer: Hadley Wickham <hadley@rstudio.com
+
+if (! require(rvest)) {
+  install.packages("rvest")
+}
+```
+\
+
+```{r dplyr, message=FALSE, warning=FALSE}
+# This package is used for Data-Manipulation
+
+# dplyr ----> Authors: Hadley Wickham, Romain François, Lionel Henry, Kirill Müller
+# Maintainer: Hadley Wickham <hadley@rstudio.com
+
+if (! require(dplyr)) {
+  install.packages("dplyr")
+}
+```
+\
+
+```{r academictwitteR, message=FALSE, warning=FALSE}
+# Access the Twitter Academic Research 
+
+# academictwitteR ----> Authors: Christopher Barrie, Justin Chun-ting Ho, Chung-hong Chan, Noelia Rico, Tim König, Thomas Davidson
+# Maintainer: Christopher Barrie <christopher.barrie@ed.ac.uk>
+
+if (! require(academictwitteR)) {
+  install.packages("academictwitteR")
+}
+```
+
+\
+```{r xts, message=FALSE, warning=FALSE}
+# Time Series Manipulation and Plotting
+
+# xts ----> Authors: Jeffrey A. Ryan, Joshua M. Ulrich, Ross Bennett, Corwin Joy
+# Maintainer: Joshua M. Ulrich <josh.m.ulrich@gmail.com>
+
+if (! require(xts)) {
+  install.packages("xts")
+}
+```
+\
+```{r ggplot2, message=FALSE, warning=FALSE}
+# Package for Plotting and Powerful Data Visualization
+
+# ggplot2 ----> Author: Hadley Wickham, Winston Chang, Lionel Henry, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington
+# Maintainer: Thomas Lin Pedersen <thomas.pedersen@rstudio.com>
+
+if (! require(ggplot2)) {
+  install.packages("ggplot2")
+}
+```
+\
+```{r quantmod, message=FALSE, warning=FALSE}
+# Package for Daily Prices and Returns - Finance 
+
+# quantmod ----> Author: Jeffrey A. Ryan
+# Maintainer: Joshua M. Ulrich <josh.m.ulrich@gmail.com>
+
+if (! require(quantmod)) {
+  install.packages("quantmod")
+}
+```
+\
+```{r stringr,message=FALSE, warning=FALSE}
+# Simple, Consistent Wrappers for Common String Operations
+
+# stringr ----> Author: Hadley Wickham
+# Maintainer: Hadley Wickham <hadley@rstudio.com
+
+if (! require(stringr)) {
+  install.packages("stringr")
+}
+```
+\
+```{r Stopword, message=FALSE, warning=FALSE}
+# Multilingual Stopword Lists
+
+# stopwords ----> Author: Kenneth Benoit, David Muhr, Kohei Watanabe
+# Maintainer: Kenneth Benoit <kbenoit@lse.ac.uk>
+
+if (! require(stopwords)) {
+  install.packages("stopwords")
+}
+```
+\
+```{r tidytext, message=FALSE, warning=FALSE}
+# Text Mining Tools
+
+# tidytext ----> Author: Gabriela De Queiroz, Colin Fay, Emil Hvitfeldt, Os Keyes, Kanishka Misra, Tim Mastny, Jeff Erickson, David Robinson, Julia Silge 
+# Maintainer: Julia Silge <julia.silge@gmail.com>
+
+if (! require(tidytext)) {
+  install.packages("tidytext")
+}
+```
+\
+```{r tokenizers, message=FALSE, warning=FALSE}
+# Fast, Consistent Tokenization of Natural Language Text
+
+# tokenizers ----> Author: Lincoln Mullen, Os Keyes, Dmitriy Selivanov, Jeffrey Arnold, Kenneth Benoit
+# Maintainer: Lincoln Mullen <lincoln@lincolnmullen.com>
+
+if (! require(tokenizers)) {
+  install.packages("tokenizers")
+}
+```
+\
+```{r calendR, message=FALSE, warning=FALSE}
+# Monthly and yearly calendars
+
+# calendR ----> Author: José Carlos Soage González, Natalia Pérez Veiga 
+# Maintainer: José Carlos Soage González <jsoage@uvigo.es>
+
+if (! require(calendR)) {
+  install.packages("calendR")
+}
+```
+\
+```{r importing syuzhet, message=FALSE, warning=FALSE}
+# Extracts Sentiment and Sentiment-Derived Plot Arcs from Text  <--- Needed for the extra part
+
+# syuzhet ----> Author: person ("Matthew", "Jockers", email = "mjockers@gmail.com", role = c("aut", "cre"))
+# Maintainer: Matthew Jockers <mjockers@gmail.com>
+
+if (! require(syuzhet)) {
+    install.packages("syuzhet")
+}
+```
+\
+
+# a. Register with twitter and obtain an account.
+\
+
+Done.
+
+\
+
+# b. Read the article Analyzing Twitter with R at https://towardsdatascience.com/setting-up-twitter-for-text-mining-in-r-bcfc5ba910f4 and run the code. (You need to add your own Twitter credentials and obtain an API key.)
+\
+
+Done.
+
+\
+
+# c. Obtain the current weights of the S&P 500 Index.
+
+\
+
+Importing the "sp500.csv" dataset: the other Rmd file obtained from www.slickcharts.com/sp500 all the CURRENT tickers in the S&P 500 using `Web Scraping`:
+
+\
+```{r importing rvest, message=FALSE, warning=FALSE}
+library(rvest)
+```
+\
+```{r importing dplyr, message=FALSE, warning=FALSE}
+library(dplyr)
+```
+
+\
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+# Importing the sp500_components dataset from the current working directory
+
+sp500_components <- read.csv(paste(getwd(),"/sp500.csv",sep=""))
+
+# Removing unneeded columns
+
+drop <- c("X")
+
+sp500_components = sp500_components[,!(names(sp500_components) %in% drop)]
+
+sp500_components <-   sp500_components %>%   # Here we removed MBC and FISV because it did not have daily returns for the day... It had just been listed!
+  
+  filter(TICKER != "MBC") %>%
+  filter(TICKER != 'FISV')
+
+sp500_components
+```
+
+\
+
+DATA VALIDATION: is the sum of all the weights 1?
+
+\
+```{r SP&500 components weights validation}
+sum(sp500_components$WEIGHT)
+```
+\
+
+OK!
+
+\
+
+# d. Download the tweets about the companies in the index using their “cashtag” (i.e. $AAPL for Apple Computer).
+
+\
+
+Before starting to iterate over all the tickers, add `$` in front of every ticker, in order to create the `“cashtag”` variable for each stock.
+
+\
+```{r creating cashtags}
+
+# Empty_list 
+
+CASHTAGS <- c()
+
+# Iteration
+
+for (k in sp500_components$TICKER) {
+  
+  casgtag <- paste("$",k,sep="")
+  
+  CASHTAGS <- c(CASHTAGS,casgtag)
+  
+}
+
+# Final Output: a data frame with [POSITION, COMPANY,TICKER, WEIGHT, CASHTAG]
+
+sp500_components$CASHTAG <- CASHTAGS
+
+sp500_components
+```
+\
+
+Downloading all the available tweets for every stock in the `S&P 500 Index`. Already done in the "Twitter Project without dataset.Rmd". 
+
+\
+
+To?
+
+\
+```{r to}
+unique(tweets$DATE)[1] 
+```
+\
+
+From?
+
+\
+```{r beginning of the analisys}
+unique(tweets$DATE)[length(unique(tweets$DATE))]
+```
+\
+
+```{r tweets dataset}
+tweets
+```
+\
+
+# e. Produce a daily time series of the number of tweets about each company.
+
+\
+
+In order to do that, we must aggregate data by date and by `CASHTAG`:
+
+\
+```{r time series tweets}
+
+# Creating an empty data.frame with correct dates
+
+time_series_tweets <- data.frame(DATE=unique(tweets$DATE))
+
+# Calculating the daily number of tweets for each stock
+
+for (k in unique(tweets$CASHTAG)) {
+  
+  # PROGRESS IN THE CONSOLE
+  
+  cat(paste("\r- COUNTING TWEETS FOR EACH COMPANY ---> From:",unique(tweets$DATE)[length(unique(tweets$DATE))],
+            "to:",unique(tweets$DATE)[1], "- Number of Companies :",length(unique(tweets$CASHTAG)),
+            "- Iteration number:",which(unique(tweets$CASHTAG)==k),
+            "- Overall Progress:",round(((which(unique(tweets$CASHTAG)==k))/length(unique(tweets$CASHTAG)))*100,0),"%"))
+  
+  df <- tweets %>%
+    
+    filter(CASHTAG == k )%>%
+    
+    group_by(DATE) %>%  # Grouping by date 
+    
+    summarize (k = n()) # This is the part in which the code counts all the tweets for every date 
+  
+  colnames(df) <- c("DATE",k)
+  
+  # In every iteration the code merges the "df" data frame with the "time_series_tweets" one 
+  
+  time_series_tweets <- merge(x= time_series_tweets, y= df, by= 'DATE', all.x= T)  #  <<<<<<<<<<  all.x = T is pivotal here!
+  
+} 
+time_series_tweets
+```
+\
+
+NA in this case means 0 tweets for that stock in that particular day. If there are any, we replaced them with 0.
+
+\
+
+Daily time series of the number of tweets about each selected company:
+
+\
+
+```{r NA?}
+# Replacing NA with 0
+
+time_series_tweets[is.na(time_series_tweets)] <- 0
+
+# Converting the DATE column from character to the correct time format
+
+time_series_tweets$DATE <- date(time_series_tweets$DATE)
+
+# FINAL RESULT
+
+time_series_tweets
+```
+\
+
+# f. Produce a time series of all tweets. Can you find some cyclicality?
+
+\
+```{r total tweets by date S&P500}
+
+# Creating the TOTAL column, as a sum of each rows in the time_series_tweets data frame 
+
+time_series_tweets$TOTAL <- rowSums(time_series_tweets[,2:dim(time_series_tweets)[2]])
+
+# Selecting only the DATE and TOTAL columns 
+
+ts_all_tweets <- time_series_tweets[,c(1,dim(time_series_tweets)[2])]
+
+ts_all_tweets
+```
+\
+
+Now we want to plot this time series in order to visualize a possible trend.
+
+\
+
+In order to do that, we prefer converting `ts_all_tweets` in a time series object with the xts package.
+
+\
+
+```{r importing xts,message=FALSE, warning=FALSE}
+library(xts)
+```
+\
+
+```{r total tweets xts object}
+
+# Creating a time series with the xts package, making sure to correctly parse the DATE column
+
+ts_all_tweets_xts <- as.xts(ts_all_tweets$TOTAL,ts_all_tweets$DATE)
+names(ts_all_tweets_xts) <- c("TOTAL")
+ts_all_tweets_xts
+```
+\
+```{r plotting ts_all_tweets_xts, fig.height=4, fig.width=8}
+
+# PLOTTING THE TIME SERIES: <<<<<<<< Number of tweets for the selected range of MARKET CAPITALIZATION
+
+plot.xts(ts_all_tweets_xts,main=paste("N. of Tweets for the",range,"stocks in S&P 500"),
+         col="steelblue",
+         labels.col = "black",
+         xlab="DATE")
+
+```
+\
+
+```{r importing calendR}
+library(calendR)
+```
+\
+```{r calendar to understand cyclicality, fig.height=4, fig.width=8}
+calendR(start_date = ts_all_tweets$DATE[1],
+        end_date = ts_all_tweets$DATE[dim(ts_all_tweets)[1]],
+        col = "steelblue", weeknames.col = "black",
+        months.col = "black")
+
+```
+\
+
+# g. Compare the “market share” of tweets to the index weight. Which companies are “over-” and “undertweeted”? Form equally weighted portfolios of over and undertweeted companies. What is their subsequent performance?
+
+\
+
+BEFORE STARTING THIS POINT, SOME CONSIDERATIONS:
+
+\
+
+1. Previously, when we had downloaded all the tweets for every selected stock, we got back a dataset with all the tweets till yesterday at 00.00.00.
+
+\
+2. To compare the return of a portfolio made with under-tweeted stocks vs a portfolio made with over-tweeted stocks we must use the price of the last trading day. It does not matter when we launch the code, we will always have a return.
+\
+
+WE ARE ASSUMING THAT THE WEIGHTS OF ALL THE STOCKS OF THE S&P500 HAVE REMAINED AND WILL REMAIN THE SAME FOR A COUPLE OF DAYS. 
+
+\
+
+This assumption seems reasonable due to the fact that the daily variation of this variable is very small.
+
+\
+
+However, this assumption could not be relaxed if the number of stocks in the `S&P 500 Index` were lower.
+
+\
+
+```{r day variable for further analisys}
+
+# Creating the variable DAY using the lubridate package to better select the DATE of analysis
+
+time_series_tweets$DAY <- wday(time_series_tweets$DATE,label=T,abbr=F)
+
+# Reallocating DAY for readability
+
+time_series_tweets <-time_series_tweets %>% 
+  relocate(DAY,.after = DATE)
+
+time_series_tweets
+```
+\
+
+THE CHUNK BELOW `valid trading days` IS PIVOTAL: IT ENSURES THAT WE CAN ALWAYS OBTAIN RETURNS OF ALL THE ANALYZED STOCKS. 
+
+\
+It automatically drops all the number of tweets for Saturday, Sunday and for every day in which the stock market in USA is closed, leaving only trading days.
+\
+(This is necessary because, for example, we could have many tweets during Christmas, but the market is closed that day).
+
+\
+How can we know that? How can we know all the holidays for the future as well? 
+\
+We do not have to. We let the free Yahoo Finance API do it for us. 
+\
+The only thing we have to do is to merge the `time_series_tweets` with a dataset of daily prices downloaded from Yahoo Finance with the same time span as the one we used to retrieve the tweets.
+\
+The resulting dataset will always be correct, no matter when created!
+\
+
+Firstly, retrieve valid trading days within the time span.
+
+\
+```{r importing quantmod}
+library(quantmod)
+```
+\
+
+```{r valid trading days, message=FALSE, warning=FALSE}
+
+# Retrieving the first and the last date of analysis
+
+start <- time_series_tweets$DATE[1]
+
+end <- time_series_tweets$DATE[dim(time_series_tweets)[1]] +1
+
+# Downloading from Yahoo Finance
+
+trading_days <-getSymbols("AAPL",from= start ,to = end	,auto.assign = F )
+
+# Extracting and selecting only the index
+
+trading_days <- fortify.zoo(trading_days)
+
+trading_days <- trading_days %>%
+  
+  select(Index,c(-2,-3,-4,-5,-6,-7))
+
+colnames(trading_days) <- c("DATE")
+
+trading_days$DATE
+```
+\
+
+Secondly, merge `trading_days` with time_series_tweets
+
+\
+```{r only number of tweets for trading days}
+
+# Merging the trading_days dataset back to the time_series_tweets one, in order to get the number of tweets for valid trading days.
+
+N_tweets <- merge(x= trading_days, y= time_series_tweets, by= 'DATE', all.x= T) #  <<<<<<<<<<  all.x = T is pivotal here!
+
+N_tweets
+```
+\
+
+Selecting the number of tweets for every company of the last and valid trading date.
+
+\
+```{r last valid trading day and number of tweets for every company}
+# Dimension of the dataset
+
+n <- dim(N_tweets)[2]-1
+
+# Last day 
+
+tweets_n <- tail(N_tweets[,3:n],1)[1,]
+
+# Which day?
+
+date <- tail(N_tweets,1)[1,1]
+
+Vector_n_tweets <- c()
+
+# Looping to retrieve the exact number of tweets for every stock
+
+for (k in c(tweets_n)) {
+    Vector_n_tweets <- c(Vector_n_tweets,k)
+}
+
+N_tweets <- data.frame(CASHTAG=colnames(tweets_n),N_tweets = Vector_n_tweets,DATE=date)
+  
+N_tweets
+```
+\
+
+EXTRA POINT: Visualizing the top 10 companies with the largest number of tweets and the last 10 companies with the least number of tweets for the considered DATE.
+
+\
+
+In order to perform this visualization, we are going to use the `ggplot2` package.
+
+\
+```{r importing ggplot2, message=FALSE, warning=FALSE}
+library(ggplot2)
+```
+\
+
+```{r plotting number of tweets for the best 10 companies, fig.height=4, fig.width=8}
+
+# Creating a new data frame sorted by the number of tweets
+
+N_tweets_sorted <- arrange(N_tweets, desc(N_tweets))
+
+# Converting back CASHTAGS to TICKERS using a Regex formula
+
+N_tweets_sorted$CASHTAG <- gsub("^.{0,1}", "", N_tweets_sorted$CASHTAG)
+
+colnames(N_tweets_sorted) <- c("TICKER","Number_of_Tweets","DATE")
+
+n <- dim(N_tweets_sorted)[1] # THE DIMENSION OF THE DATASET
+
+
+#######  Do we have at least 20 companies to perform the top 10 and the bottom 10 visualizations?  ####### 
+# In theory always --- but we cannot be sure.
+
+
+if (dim(N_tweets_sorted)[1] >=20){
+  
+  Top_10 <- N_tweets_sorted[1:10,]  # Taking the Top 10 companies
+  
+  Top_10$Position <- "Top_10"
+  
+  Bottom_10 <- (N_tweets_sorted[(n-9):n,]) # Taking the Bottom 10 companies
+
+  Bottom_10$Position <- "Bottom_10"
+  
+} 
+
+# PLOTTING THE RESULTS for "Top_10"
+
+if (dim(N_tweets_sorted)[1] >=20){
+  
+  ggplot(data = Top_10,aes(x=TICKER,y= Number_of_Tweets)) + geom_col(colour = "steelblue") + theme_grey()+ scale_fill_hue(c=75) + ggtitle(paste("Number of Tweets by Cashtags - Top 10 Companies \n--- S&P 500 Index --- "),N_tweets$DATE[1]) + xlab("COMPANIES") + ylab("Number of Tweets") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+  
+} else {
+  
+  print(paste("We do not have enough companies to perform this visualization on",time_series_tweets$DATE[dim(time_series_tweets)[1]],".You should increase the range above. This allows you to extract tweets for more companies [REMAINDER: the range value above is refered to the % of market cap of the S&P500 Index we are analysing]"))
+  
+}
+```
+\
+
+```{r plotting number of tweets for the worse 10 companies, fig.height=4, fig.width=8}
+
+# PLOTTING THE RESULTS for "Bottom_10"
+
+if (dim(N_tweets_sorted)[1] >=20){
+  
+  ggplot(data = Bottom_10,aes(x=TICKER,y= Number_of_Tweets)) + geom_col(colour = "red") + theme_grey()+ scale_fill_hue(c=75) + ggtitle(paste("Number of Tweets by Cashtags - Bottom 10 Companies \n--- S&P 500 Index --- "),N_tweets$DATE[1]) + xlab("COMPANIES") + ylab("Number of Tweets") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+  
+} else {
+  
+  print(paste("We do not have enough companies to perform this visualization on",time_series_tweets$DATE[dim(time_series_tweets)[1]],".As specified above, you should increase the range value. This allows you to extract tweets for more companies [REMAINDER: the range value above is refered to the % of market cap of the S&P500 Index we are analysing]"))
+  
+}
+
+```
+\
+
+Merging the 2 dataset for further analysis: `N_tweets` AND `sp500_components`.
+
+\
+
+```{r Market share of tweets}
+sp500_twitter <- merge(x= N_tweets, y= sp500_components, by= 'CASHTAG', all.x= T) #  <<<<<<<<<<  all.x = T is pivotal here!
+
+
+# Dropping the POSITION and the CASHTAG column
+
+drop <- c("POSITION","CASHTAG")
+
+sp500_twitter = sp500_twitter[,!(names(sp500_twitter) %in% drop)]
+
+# CALCULATING THE "MARKET SHARE OF THE TWEETS"
+
+sp500_twitter$MARKET_SHARE_TWS <- sp500_twitter$N_tweets / sum(sp500_twitter$N_tweets) 
+
+# Arranging the dataset for better readability using the dplyr package
+
+sp500_twitter <- sp500_twitter %>%
+  select(DATE,TICKER,COMPANY,N_tweets,WEIGHT,MARKET_SHARE_TWS)
+
+# Calculating the relative weights based on the considered percentage of the market cap.
+
+if (range=="all") {
+  sp500_twitter <- sp500_twitter
+} 
+
+if (range=="top_80") {
+  sp500_twitter$WEIGHT <- sp500_twitter$WEIGHT/0.8
+} 
+
+sp500_twitter
+
+```
+\
+
+Computing which company was either under or over-tweeted for the considered DATE:
+
+\
+
+```{r over and under companies}
+
+# Comparing WEIGHT vs MARKET_SHARE_TWS with the case_when() function.
+
+over_under_tweeted <-  sp500_twitter %>%
+  mutate(STATUS = case_when(MARKET_SHARE_TWS > WEIGHT ~ "Over_Tweeted",     
+                            MARKET_SHARE_TWS <= WEIGHT ~ "Under_Tweeted"))
+
+# Arranging the dataset for better readability
+
+over_under_tweeted <- over_under_tweeted %>%
+  select(DATE,COMPANY,STATUS,WEIGHT,MARKET_SHARE_TWS,N_tweets,TICKER)
+
+over_under_tweeted 
+```
+\
+
+Using the `quantmod` package to retrieve the returns of all the selected stocks for the considered DATE:
+
+\
+
+This is why was pivotal to write the chunk `valid trading days` at the `line 807`.
+
+\
+
+Now we are 100% sure to have daily returns of all the stocks and we can match their respective number of tweets.
+
+\
+```{r returns - quantmod, message=FALSE, warning=FALSE}
+
+ ### <<<<<<<<<<<  THIS MAY TAKE A WHILE >>>>>>>>>>>>>>
+
+# Initializing start_date and end_date for the query of the returns
+
+end_date <- unique(over_under_tweeted$DATE +1) # Here the "plus one" is pivotal because, when you set the "to" parameter to a specific date in the getSymbols function (from quantmod package), you get back data till the previous trading day.
+
+start_date <- unique(over_under_tweeted$DATE) -3 # Here we are retrieving prices for 3 days before the considered DATE, in order to be sure to download all the data.
+
+# Rets = Empty vector needed to store the DATE's daily return for every stock in the S&P 500
+
+Rets <- c()
+
+for (ticker in over_under_tweeted$TICKER) {
+  
+  # PROGRESS IN THE CONSOLE
+  
+    cat(paste("\r- DOWNLOADING RETURNS ---> Date:",unique(over_under_tweeted$DATE),
+            "- Number of Companies :",dim(over_under_tweeted)[1],"- Iteration Number",which(over_under_tweeted$TICKER==ticker),
+            "- Overall Progress: ",round((which(over_under_tweeted$TICKER==ticker)/length(over_under_tweeted$TICKER))*100,0),"%"))
+  
+  df <-getSymbols(ticker,from= start_date,to =	end_date,auto.assign = F )  # Asking Yahoo Finance for prices
+  
+  CLOSING_PRICE <- Cl(df) # Selecting only the "Close" price
+  
+  daily_rets <- dailyReturn(CLOSING_PRICE) # Daily return 
+  
+  n <- dim(daily_rets)[1]
+  
+  right_rets <- daily_rets[n] # Selecting only the needed return
+  
+  Rets <- c(Rets,right_rets)
+  
+}
+
+# Adding the Rets vector to the over_under_tweeted data set
+
+over_under_tweeted$DAILY_RETS <- Rets
+
+# dropping rows with NA values from the data frame
+over_under_tweeted <- na.omit(over_under_tweeted)
+
+```
+\
+
+EXTRA POINT: Visualizing the data to better understand the `over_under_tweeted` dataset and the result of the analysis:
+
+\
+
+```{r plotting over and under tweeted companies - day, fig.height=4, fig.width=8}
+
+# PLOTTING THE RESULTS
+
+ggplot(over_under_tweeted,aes(STATUS,fill=STATUS)) + geom_bar() + theme_grey()+ scale_fill_hue(c=60) + ggtitle(paste("Over and Under Tweeted companies VS their market weights \n--- S&P 500 Index --- "),over_under_tweeted$DATE[1]) + xlab("Status") + ylab("Number of Companies") 
+
+```
+\
+
+```{r over tweeted companies}
+
+# Creating a new dataset OVER_TWEETED_STOCKS with only stocks that were over_tweeted for the considered DATE
+
+OVER_TWEETED_STOCKS <- over_under_tweeted %>%
+  filter(STATUS=="Over_Tweeted")
+
+OVER_TWEETED_STOCKS
+
+```
+\
+
+```{r under tweeted companies}
+# Creating a new dataset UNDER_TWEETED_STOCKS with only stocks that were under_tweeted for the considered DATE
+
+UNDER_TWEETED_STOCKS <- over_under_tweeted %>%
+  filter(STATUS=="Under_Tweeted")
+
+UNDER_TWEETED_STOCKS
+```
+\
+
+Using the `OVER_TWEETED_STOCKS` and the `UNDER_TWEETED_STOCKS` dataset to calculate the returns of the 2 different equally weighted portfolios:
+
+\
+
+```{r over tweeted portfolio - return}
+
+# RETURN OF THE PORTOFOLIO MADE WITH OVER-TWEETED STOCKS
+
+weight <- 1/(dim(OVER_TWEETED_STOCKS)[1])  # Equally weighted portfolio
+
+RET_OVER_TWEETED_PORTOFLIO  <- sum(OVER_TWEETED_STOCKS$DAILY_RETS * weight)
+
+print(paste("The return for the equally weighted portfolio composed with >>>>> Over-Tweeted <<<<<< stocks was:",
+            round(RET_OVER_TWEETED_PORTOFLIO *100,4),"% on",unique(over_under_tweeted$DATE)))
+```
+\
+
+```{r under tweeted portfolio - return}
+# RETURN OF THE PORTOFOLIO MADE WITH UNDER-TWEETED STOCKS
+
+weight <- 1/(dim(UNDER_TWEETED_STOCKS)[1])
+
+RET_UNDER_TWEETED_PORTOFLIO  <- sum(UNDER_TWEETED_STOCKS$DAILY_RETS * weight) # Equally weighted portfolio
+
+print(paste("The return for the equally weighted portfolio composed with >>>>> Under-Tweeted <<<<<< stocks was:",
+            round(RET_UNDER_TWEETED_PORTOFLIO *100,4),"% on",unique(over_under_tweeted$DATE)))
+```
+\
+
+# h. So far, we counted all tweets, regardless of their content (bullish vs. bearish). Find a (simple) way to incorporate content in the form of “bullish” and “bearish” tweets. (It is OK if a substantial number of tweets are neither bullish nor bearish). Form equally weighted portfolios and compare the subsequent returns.
+
+\
+
+Before starting this point, which day are we considering for the analysis?
+
+\
+```{r date of analisys}
+print(paste("Where are performing our analisys on:",over_under_tweeted$DATE[1]))
+```
+\
+
+Using the Date above to filter the tweets dataset in order to speed up the computation and the analysis (cleaning all the tweets dataset would be redundant)
+
+\
+```{r tweets for the date of analisys}
+tweets_date <- tweets %>%
+  
+  filter(DATE == over_under_tweeted$DATE[1])
+
+tweets_date
+```
+\
+
+```{r importing stringr, message=FALSE, warning=FALSE}
+library(stringr)
+```
+\
+
+For this task, before tokenizing all the tweets, the collected data needs to be cleaned. In this form all the tweets are dirty.
+
+\
+
+To accomplish this, writing the `clean.text` function using the `gsub`,`tolower` and `str_replace_all` function.
+
+\
+```{r cleaning function}
+clean.text = function(text)
+{
+  # Converting to lower case
+  text = tolower(text)
+  # Removing rt
+  text = gsub("rt", " ", text)
+  # Removing at
+  text = gsub("@\\w+", " ", text)
+  # Removing punctuation
+  text = gsub("[[:punct:]]", " ", text)
+  # Removing numbers
+  text = gsub("[[ :digit: ]]", " ", text)
+  # Removing links http
+  text = gsub("http\\w+", " ", text)
+  # Removing tabs
+  text = gsub("[ |\t]{2,}", " ", text)
+  # Removing blank spaces at the beginning
+  text = gsub("^ ", " ", text)
+  # Removing blank spaces at the end
+  text = gsub(" $", " ", text)
+  
+  # OTHER CORRECTIONS
+  
+  text = gsub('https://','',text)
+  text = gsub('http://','',text)
+  text = gsub('[^[:graph:]]', ' ',text)
+  text = gsub('[[:punct:]]', ' ', text)
+  text = gsub('[[:cntrl:]]', ' ', text)
+  text = gsub('\\d+', '', text)
+  text = str_replace_all(text,"[^[:graph:]]", " ")
+  
+  return(text)
+}
+
+```
+
+\
+
+Applying the `clean.text` function to the entire dataset in order to clean every single tweet.
+
+\
+
+Due to the large daily volume of the data, this process may take a while.
+
+\
+```{r cleaning tweets, echo=FALSE, message=FALSE, warning=FALSE}
+
+# This is the loop that, using the clean.text function, cleans every tweet 
+
+ ### <<<<<<<<<<<   THIS MAY TAKE A WHILE >>>>>>>>>>>>>>
+
+tweets_date_clean <- tweets_date
+
+for (i in 1:dim(tweets_date_clean)[1]) {
+  
+  # PROGRESS IN THE CONSOLE
+  
+  cat(paste("\r- CLEANING TWEETS ---> Date:",over_under_tweeted$DATE[1],
+            ", Number of Tweets :",dim(tweets_date_clean)[1],", Tweets Cleaned : ", i,
+            ", Overall Progress :",round((i/dim(tweets_date_clean)[1])*100,0),"%"))
+  
+  clean_text <- clean.text(tweets_date_clean[i,2])
+  
+  tweets_date_clean[i,2] <- clean_text
+}
+
+tweets_date_clean
+```
+\
+
+Before moving forward, prepare the environment for the up-coming analysis. 
+
+\
+
+Importing some common stop words from the `stopwords` package.
+
+\
+
+This is necessary because stop words (such as "the","am","while",etc) are insignificant when performing a sentiment analysis.
+
+\
+```{r importing stopwords, message=FALSE, warning=FALSE}
+library(stopwords)
+```
+\
+
+```{r tuning stop words}
+stopwords <- stopwords(language = "en", source = "snowball", simplify = TRUE)
+
+# Adding words to the stopwords list based on our assumptions on what could be redundant in the context of social networks
+
+stopwords <- c(stopwords,"in","after","and","why","what","by","where","how","to","about","above","across","after","afterwards","again","against","all","already","also","although","among","amongst","amoungst","been", "before","beforehand","being","below","beside","besides","between","bill","both","co","com","con","could","everyone","everything","everywhere","except","fifteen","ltd","ly","made","may","me","meanwhile","per","perhaps","toward","towards","twelve","twenty","two","un","one","two","three","four","five","six","seven","eight","nine","ten","pls","btw","ehm","plz","ple","plss","haha","ha","hi","pol","mal","sal","ter")
+
+# Removing also all the tickers in every tweets: they have no meaning!
+
+lower_tickers <- tolower(sp500_components$TICKER)
+
+stopwords <- c(stopwords,lower_tickers)
+
+# Removing extra noise <- every combinations of 2 letters in the alphabet with no meaning (such as "au","by","er")
+
+two_letters_stop_word <- c()
+
+for (letter in letters) {           # Letters here is a pre-loaded list in R
+  for (letter2 in letters) {
+    combination <- paste(letter,letter2,sep="")
+  two_letters_stop_word <- c(two_letters_stop_word,combination)
+  }
+}
+
+stopwords <- c(stopwords,two_letters_stop_word,letters)
+
+
+# Making sure to have only unique words
+
+stopwords <- unique(stopwords)
+
+# Making sure to keep some meaningful words that could have been inserted in the stopwords list by mistake (due to the fact that we used many sources to come up with this basket of words)
+
+stop_words_to_delete <- c("up","down","against","above","below")
+
+stopwords <- stopwords[!stopwords %in% stop_words_to_delete]
+
+stopwords[1:40] # Displaying only the first 40 words in the stopwords list
+
+```
+\
+
+Downloading a list of positive and negative words. We chose to do this point using the `tidytext` package.
+
+\
+
+This package has a pre-loaded dataset that allows us to obtain the Sentiment lexicon from `Bing Liu and collaborators`:
+
+\
+
+https://search.r-project.org/CRAN/refmans/tidytext/html/sentiments.html.
+
+\
+```{r importing tidytext,  message=FALSE, warning=FALSE}
+library(tidytext)
+```
+\
+
+```{r sentiment words for sentiment analysis}
+
+# Retrieving the dataset with the Sentiment lexicon from `Bing Liu and collaborators`.
+
+sentiment_words <- tidytext::sentiments # The dataset already loaded 
+
+sentiment_words
+```
+\
+```{r tuning positive words}
+
+# POSITIVE WORDS
+
+positive <- sentiment_words%>%
+  filter(sentiment=="positive")
+
+list_positive <- list(positive$word)
+
+# Adding words that we thought could be positive and representative of a Bullish tweets, in addition to the lexicon from `Bing Liu and collaborators`.
+
+list_positive[[1]] <- c(list_positive[[1]],"increase", "increasing", "growth", "rise", "enlargement","expansion", "escalation", "swelling","addition", "heightening", "extension","burgeoning","augmentation", "intensification", "inflation", "deepening", "pushing up", "rise", "raise", "gain","addition","accretion","enhancement","hike","jump","boost","accrual","expansion","increment","uptick","leap","add-to","extend","expand","enlarge","escalate","raise","augment","up","step-up","ramp-up","magnify","amplify","intensify","swell","compound","boost","build-up","pump-up","grow","expand","enlareg","goup","rise","climb","mount","gain","swell","wax","appreciate","accelerate","escalate","boom", "blow-up","ballono","snowball","mushroom","get-bigger","get-larger","grow-larger","grow-bigger","spread","purchase","get","acquire","order","pick up","pay-for","shop-for","shop-around-for","go-shopping-for","score","procure","gain","obtain","buyup","bargain","barter","invest","investment","spring","peak","top","climax","crown","crest","culminate","top-out","highest","best","top","summit","highest-point","pinnacle","tip","apex","acm","apoge","zenith","height","top","culmination","maximum","max","advantage","avail","benefit","value","jump","growth","gain","hike","leap","surge","augmentation","enlargement","multiplication","addition","advance","upsurge","upswing","upturn","uptick","raise","inflation","ballooning","ascent","ascension","climb","surge","upward-motion","upward sweep","uphill struggle","mounting","soaring","shootin-up","target")
+
+# Making sure to have only unique words
+
+list_positive[[1]] <- unique(list_positive[[1]])
+
+
+list_positive[[1]][1:40] # Displaying only the first 40 words in the list_positive list
+```
+\
+
+```{r number of positive words in our dictionary}
+length(list_positive[[1]])
+```
+\
+
+```{r tuning positive words}
+# NEGATIVE WORDS
+
+negative <- sentiment_words%>%
+  filter(sentiment=="negative")
+
+list_negative <- list(negative$word)
+
+# Adding words that we thought could be negative and representative of a Bearish tweets, in addition to the lexicon from `Bing Liu and collaborators`.
+
+list_negative[[1]] <- c(list_negative[[1]],"fall", "fell", "falling", "fallen", "falls", "lose", "lost", "losing", "loses", "drop", "dropped", "dropping", "drops", "slip", "slipped", "slipping", "slips", "decline", "declined", "declining","declines", "tumble", "tumbled","tumbling", "tumbles", "slump","slumped", "slumping", "slide", "slid","sliding", "slides", "down", "slump", "dip", "sink", "shed", "suffer", "ease", "plunge", "retreat", "ebb", "come down", "edge down","move-down", "nudge-down", "lower", "inch lower", "nudge-lower","trickle", "flop", "drizzle", "leak","depreciate", "depreciating","diminish", "diminishing", "abyss", "dip", "dive", "plunge","downward", "downwards", "cascading", "downgrade", "descending","negative","flop", "collapse", "slide", "lowering", "pessimistic","anti", "dwinding", "loss","melt down", "gap", "gapped", "stalled","crucial", "weakness", "plummet", "sink", "slip", "alert","decrease","reduce", "reduction", "downside","down","break", "fear","fearful", "shrink", "issue", "scalping", "breakdown", "stalled", "adverse", "decreasing", "pressure","unfavorable", "weak","low", "lowest", "oppress","bankrupt") 
+
+# Making sure to have only unique words
+
+list_negative[[1]] <- unique(list_negative[[1]])
+
+list_negative[[1]][1:40] # Displaying only the first 40 words in the list_negative list
+```
+\
+```{r number of negative words in our dictionary}
+length(list_negative[[1]])
+```
+\
+
+Here below the code is doing what follows:
+
+\
+- Tokenizing all the tweets with the `tokenizers` package.
+\
+- Removing all the stopwords using the list we have downloaded and implemented before
+\
+- Summing up all the `positive`, `negative` or `neither` words in each tweets, using the existing data to perform features engineering.
+\
+- Performing the sentiment analysis using all the features just created.
+
+\
+```{r importing tokenizers, message=FALSE, warning=FALSE}
+library(tokenizers)
+```
+\
+
+```{r tokening and cleaning tweets}
+
+ ### <<<<<<<<<<<   THIS MAY TAKE A WHILE >>>>>>>>>>>>>>
+
+# Firstly, the code 4 empty vectors
+
+positive <- c()
+negative <- c()
+neither <- c()
+length <- c()
+
+# Secondly, the code starts to loop in each clean tweets.
+
+# While looping, the code removes all the stopwords from the tweet, performs the tokenazation and counts the number of positive, negative or neither words in all the tweets based on the filtering lists created before.
+
+clean_tweets <- list()
+
+for (row in 1:dim(tweets_date_clean)[1]) {
+  
+  text <- tokenize_words(tweets_date_clean[row,2],stopwords=stopwords) # Here the code is taking every tweet in the tweets data frame, every loop
+  
+  clean_tweets <- c(clean_tweets,text)
+  
+  neg <- 0
+  
+  pos <- 0
+  
+  nei <- 0
+  
+  for (word in text[[1]]){
+    
+  if (word %in% list_negative[[1]]) {
+    
+    neg <- neg + 1 # If the word is in the list_negative, increase neg
+  }
+    
+  else if (word %in% list_positive[[1]]) {
+    
+    pos <- pos +1 # If the word is in the list_positive, increase pos
+    
+  } else {
+    
+    nei <- nei+1 # If the word is not in the list_positive and in the list_negative, increase nei
+  
+   }
+ }
+  
+  negative <- c(negative,neg)
+  
+  positive <- c(positive,pos)
+  
+  neither <- c(neither,nei)
+  
+  length <- c(length, length(text[[1]])) # Here we also stored the total length of all the clean tweets
+  
+  # PROGRESS IN THE CONSOLE
+  
+  cat(paste("\r- SENTIMENT OF EVERY TWEET ---> Date:",over_under_tweeted$DATE[1],
+            ", Number of Tweets :",dim(tweets_date_clean)[1],", Tweets Analyzed : ", row,
+            ", Overall Progress :",round((row/dim(tweets_date_clean)[1])*100,0),"%"))
+}
+
+# Adding all the new variables back to the dataset
+
+tweets_date_clean$NUMBER_POS_WORDS <- positive
+
+tweets_date_clean$NUMBER_NEG_WORDS <- negative
+
+tweets_date_clean$NUMBER_NEITHER_WORDS <- neither
+
+tweets_date_clean$LENGTH_IN_WORDS <- length  # Here we stored the length of every tweet, in order to perform a quick data validation
+
+# Arranging the tweets dataset for better readability
+
+tweets_date_clean <- tweets_date_clean %>%
+  select(DATE,CASHTAG,NUMBER_POS_WORDS,NUMBER_NEG_WORDS,NUMBER_NEITHER_WORDS,LENGTH_IN_WORDS)
+
+names(clean_tweets) <- tweets_date_clean$CASHTAG
+clean_tweets[1:5]
+```
+\
+```{r companies and sentiment analisys for every tweets}
+tweets_date_clean
+```
+
+
+```{r from cashtags to tickers}
+# Converting back CASHTAGS to TICKERS using a Regex formula
+
+tweets_date_clean$CASHTAG <- gsub("^.{0,1}", "", tweets_date_clean$CASHTAG)
+
+names(tweets_date_clean)[names(tweets_date_clean) == 'CASHTAG'] <- "TICKER"
+tweets_date_clean
+```
+\
+
+```{r Bullish - Bearish - Neither}
+
+# Here below the code is creating a new variable: SENTIMENT
+
+# If, for a given tweet, the number of positive words are higher than the number of positive words, then the SENTIMENT variable for that tweet will be Bullish
+
+# If, for a given tweet, the number of positive words are lower than the number of positive words, then the SENTIMENT variable for that tweet will be Bearish
+
+# Otherwise, the SENTIMENT variable for that tweet will be Neither
+
+tweets_date_clean <-  tweets_date_clean %>%
+  
+  mutate(SENTIMENT = case_when(NUMBER_POS_WORDS > NUMBER_NEG_WORDS ~ "Bullish",
+                            NUMBER_POS_WORDS < NUMBER_NEG_WORDS ~ "Bearish",
+                            NUMBER_POS_WORDS == NUMBER_NEG_WORDS ~ "Neither"))
+        
+
+tweets_date_clean
+```
+\
+
+Counting the number of `Bearish`, `Bullish` and `Neither` tweets.
+
+\
+
+Furthermore, knowing the total number of tweets for every company, the code can retrieve the percentage of `Bearish`, `Bullish` and `Neither` tweets.
+
+\
+```{r aggregating tweets for every company - percentage of Bullish - Bearish - Neither tweets for the considered date }
+
+ ### <<<<<<<<<<<   THIS MAY TAKE A WHILE >>>>>>>>>>>>>>
+
+# Firstly, the code initializes 3 empty vectors and a new data frame
+
+POS_NEG_NEITHER <- data.frame(TICKER = unique(tweets_date_clean$TICKER))
+
+per_pos <- c()
+per_neg <- c()
+per_nei <- c()
+
+
+# Looping over the tweets dataset by TICKER in order to aggregate the data correctly.
+
+for (ticker in unique(tweets_date_clean$TICKER)) {
+  
+  df <- tweets_date_clean %>%
+    
+    filter(TICKER==ticker)
+  
+  
+  SENTIMENT<- df$SENTIMENT
+    
+  POSITIVE <- sum(str_count(SENTIMENT, "Bullish"))  # Summing, for the considered DATE and a given ticker, all the Bullish tweets
+    
+  NEGATIVE <- sum(str_count(SENTIMENT, "Bearish"))  # Summing, for the considered DATE and a given ticker, all the Bearish tweets
+    
+  NEITHER <- sum(str_count(SENTIMENT, "Neither"))   # Summing, for the considered DATE and a given ticker, all the Neither tweets
+  
+  # Storing the number of POSITIVE, NEGATIVE and NEITHER tweets for every company and every loop
+    
+  per_pos<- c(per_pos,POSITIVE/length(SENTIMENT))
+    
+  per_neg<- c(per_neg,NEGATIVE/length(SENTIMENT))
+    
+  per_nei<- c(per_nei,NEITHER/length(SENTIMENT))
+}
+
+# Adding all the new variables back to the dataset
+
+POS_NEG_NEITHER$PERC_BULLISH <- per_pos
+
+POS_NEG_NEITHER$PERC_BEARISH <- per_neg
+
+POS_NEG_NEITHER$PERC_NEITHER <- per_nei
+
+# The following variable (SUM_PER) is needed to ensure that the algorithm has not generated incorrect values
+
+POS_NEG_NEITHER$SUM_PER <- POS_NEG_NEITHER$PERC_BULLISH + POS_NEG_NEITHER$PERC_BEARISH + POS_NEG_NEITHER$PERC_NEITHER 
+
+POS_NEG_NEITHER
+```
+\
+
+Merging the `POS_NEG_NEITHER` dataset to the `over_under_tweeted` one, in order to proceed with the analysis.
+
+\
+```{r merging all}
+Tweets_data_sentiment <- merge(x= over_under_tweeted, y= POS_NEG_NEITHER, by= 'TICKER', all.x= T) # Here all.x is still pivotal 
+
+Tweets_data_sentiment <- Tweets_data_sentiment %>%
+  
+  # Arranging the dataset for readability
+  
+  select(DATE,TICKER,DAILY_RETS,STATUS,WEIGHT,MARKET_SHARE_TWS,PERC_BULLISH,PERC_BEARISH,PERC_NEITHER,N_tweets)
+
+Tweets_data_sentiment
+```
+\
+
+Keeping only the stocks with the `N_tweets` variable higher than 0, in order to proceed with the proper comparison.
+
+\
+
+```{r filtering out companies with 0 number of tweets}
+Tweets_data_sentiment_def <- Tweets_data_sentiment %>%
+  filter(N_tweets != 0)
+
+Tweets_data_sentiment_def
+```
+\
+
+Do we have all the tweets for every stocks for the considered DATE? 
+
+\
+```{r how many drops?}
+
+if (dim(Tweets_data_sentiment)[1]-dim(Tweets_data_sentiment_def)[1] == 0) {
+  
+  print(paste("The previous algorithm has dropped",dim(Tweets_data_sentiment)[1]-dim(Tweets_data_sentiment_def)[1],"stocks, this means that we have retrived tweets (at least 1) for all the stocks in the S&P 500 index for",Tweets_data_sentiment_def$DATE[1]))
+  
+} else {
+  
+  print(paste("The previous algorithm has dropped",dim(Tweets_data_sentiment)[1]-dim(Tweets_data_sentiment_def)[1],"stocks, this means that for",dim(Tweets_data_sentiment)[1]-dim(Tweets_data_sentiment_def)[1],"stocks in the S&P 500 index we do not have any tweet for",Tweets_data_sentiment_def$DATE[1], ",thus, we should continue the analyis on the remained companies"))
+  
+}
+
+```
+\
+
+NOW THE CODE CAN SEE WHICH COMPANY HAD MORE BULLISH OR BEARISH TWEETS FOR THE COSIDERED DAY
+
+\
+
+BEFORE STARTING THIS POINT, SOME CONSIDERATIONS
+
+\
+
+We are assuming that:
+\
+
+- if the percentage of bullish tweets is higher than the percentage of bearish tweets, the overall sentiment for the stock will be Bullish for that day (positive)
+\
+
+- if the percentage of bearish tweets is higher than the percentage of bullish, the overall sentiment for the stock will be Bearish for that day (negative)
+
+\
+- if the percentage of bullish tweets is higher than the percentage of bullish bearish, the overall sentiment for the stock will be Neutral for that day and we should exclude them from the analysis.
+
+\
+```{r overall sentiment for every company in the considered date}
+
+# Comparing PERC_BULLISH vs PERC_BEARISH with the case_when() function.
+
+Tweets_data_sentiment_def <-  Tweets_data_sentiment_def %>%
+    mutate(OVERALL_SENT = case_when(PERC_BULLISH > PERC_BEARISH ~ "Bullish",     
+                            PERC_BEARISH > PERC_BULLISH ~ "Bearish",
+                            PERC_BULLISH == PERC_BEARISH  ~ "Neutral"))
+
+# Arranging the dataset for better readability
+
+Tweets_data_sentiment_def <- Tweets_data_sentiment_def %>%
+  select(DATE,TICKER,STATUS,WEIGHT,MARKET_SHARE_TWS,PERC_BULLISH,PERC_BEARISH,N_tweets,OVERALL_SENT,DAILY_RETS)
+
+Tweets_data_sentiment_def
+
+```
+\
+
+EXTRA POINT: Visualizing the `Tweets_data_sentiment_def` dataset and the result of the analysis:
+
+\
+
+```{r plotting overall sentiment by over and under tweeted comapnies, fig.height=4, fig.width=8}
+
+# PLOTTING THE RESULTS
+
+ggplot(Tweets_data_sentiment_def,aes(OVERALL_SENT,fill=OVERALL_SENT)) + geom_bar() + facet_wrap(vars(STATUS)) + theme_grey()+ scale_fill_hue(c=75) + ggtitle(paste("Bearish, Bullish and Neutral Tweets by OVER and UNDER Tweeted Companies \n--- S&P 500 Index --- "),Tweets_data_sentiment_def$DATE[1]) + xlab("Overall Sentiment") + ylab("Number of Tweets") 
+
+```
+\
+
+Before moving on with the analysis, it would be very informative to see the number of `BULLISH`, `NEGATIVE` and `NEITHER` tweets with respect to companies that had either a positive or negative return during that day.
+
+\
+
+```{r plotting overall sentiment by positive and under negative returns, fig.height=4, fig.width=8}
+# Comparing PERC_BULLISH vs PERC_BEARISH with the case_when() function.
+
+Tweets_data_sentiment_def <-  Tweets_data_sentiment_def %>%
+    mutate(RETURN = case_when(DAILY_RETS > 0 ~ "Positive",     
+                            DAILY_RETS <= 0 ~ "Negative or 0"))
+
+
+# PLOTTING THE RESULTS
+
+ggplot(Tweets_data_sentiment_def,aes(OVERALL_SENT,fill=OVERALL_SENT)) + geom_bar() + facet_wrap(vars(RETURN)) + theme_grey()+ scale_fill_hue(c=80) + ggtitle(paste("Bearish, Bullish and Neutral Tweets -  Daily Returns \n--- S&P 500 Index --- "),Tweets_data_sentiment_def$DATE[1]) + xlab("Overall Sentiment") + ylab("Number of Tweets") 
+
+
+```
+\
+
+```{r bullish stocks}
+# Creating a new dataset BULLISH_STOCKS with only stocks that had a Bullish overall sentiment 
+
+BULLISH_STOCKS <- Tweets_data_sentiment_def %>%
+  filter(OVERALL_SENT=="Bullish")
+
+BULLISH_STOCKS
+```
+\
+
+```{r bearish stocks}
+# Creating a new dataset BEARISH_STOCKS with only stocks that had a Bearish sentiment 
+
+BEARISH_STOCKS <- Tweets_data_sentiment_def %>%
+  filter(OVERALL_SENT=="Bearish")
+
+BEARISH_STOCKS
+```
+\
+
+Using the `BULLISH_STOCKS` and the `BEARISH_STOCKS` data set to calculate the returns of these 2 different equally-weighted portfolios.
+
+\
+
+```{r  bullish portfolio - return}
+
+# RETURN OF THE PORTOFOLIO MADE WITH BULLISH_STOCKS STOCKS
+
+weight <- 1/(dim(BULLISH_STOCKS)[1])  # Equally-weighted portfolio
+
+RET_BULISH_STOCKS_PORTOFLIO  <- sum(BULLISH_STOCKS$DAILY_RETS * weight)
+
+print(paste("The return for the equally weighted portfolio composed with Bullish stocks was:",
+            round(RET_BULISH_STOCKS_PORTOFLIO *100,4),"% on",unique(BULLISH_STOCKS$DATE)))
+```
+\
+
+```{r bearish portfolio - return}
+# RETURN OF THE PORTOFOLIO MADE WITH UNDER-TWEETED STOCKS
+
+weight <- 1/(dim(BEARISH_STOCKS)[1])
+
+RET_BEARISH_STOCKS_PORTOFLIO  <- sum(BEARISH_STOCKS$DAILY_RETS * weight) # Equally-weighted portfolio
+
+print(paste("The return for the equally weighted portfolio compose with Bearish stocks was:",
+            round(RET_BEARISH_STOCKS_PORTOFLIO *100,4),"% on",unique(BEARISH_STOCKS$DATE)))
+```
+\
+
+# i. The official Twitter API as explained in (b) will only allow you to download recent data. Find a way to download a longer history using Web scraping.
+
+\
+
+Not needed, with the academic API we can download all the data we want.
+
+\
+
+In this case we have downloaded all the tweets for the top 80% stocks in the S&P 500 for the last 45 days.
+
+\
+
+Academic Research access: get more precise, complete, and unbiased data from the public conversation for free. This specialized access includes access to all Twitter API v2 endpoints, a higher monthly Tweet cap (10 million tweets), and enhanced features designed to support research.
+
+\
+
+# #########################################################################################################################
+
