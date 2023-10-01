@@ -1,4 +1,6 @@
-# Twitter and the Cross-Section of Stock Returns
+# Twitter and the Cross-Section of Stock Returns - R Programming Language
+
+### Inside the folder there are two files: 
 
 ## Project Overview
 
